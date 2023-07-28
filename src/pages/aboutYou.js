@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 
 export default function AboutYou() {
+  // const [results, setResults] = useLocalStorageState(
+  //   ("results", { defaultValue: [] })
+  // );
   const [results, setResults] = useState([]);
   const [item, setItem] = useState([]);
+  // const [item, setItem] = useLocalStorageState(("item", { defaultValue: [] }));
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -12,10 +17,7 @@ export default function AboutYou() {
     setResults([...results, data]);
     event.target.reset();
   }
-  // function kcalCal(results) {
-
-  //   return z;
-  // }
+  ///////////why we used use effect ?
   useEffect(() => {
     setItem(
       results.map((item) =>
@@ -89,7 +91,7 @@ export default function AboutYou() {
           <button>Calculate</button>
           <h2>
             {item.map((item) => {
-              return item;
+              return Math.round(item);
             })}
           </h2>
         </div>

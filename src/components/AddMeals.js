@@ -3,22 +3,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-export default function AddMeals({ name, onBarcodeChange, caloryValue }) {
+export default function AddMeals({
+  name,
+  barcode,
+  onBarcodeChange,
+  caloryValue,
+}) {
   const [mealsData, setMealsData] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    s;
     setMealsData([...mealsData, data]);
     event.target.reset();
-    console.log(data);
+    // console.log(data);
+    console.log({ caloryValue });
   }
 
   return (
     <>
       <h2>{name}</h2>
+      {caloryValue !== null && <p>Calories: {caloryValue} Kcal</p>}
       <ul>
         {mealsData.map((item, index) => (
           <li key={index}>
@@ -48,7 +54,7 @@ export default function AddMeals({ name, onBarcodeChange, caloryValue }) {
             placeholder="Food Item"
             // required
           />
-          <label htmlFor={`${name}Amount`}></label>
+          {/* <label htmlFor={`${name}Amount`}></label>
           <Input
             id={`${name}Amount`}
             name={`${name}Amount`}
@@ -56,8 +62,8 @@ export default function AddMeals({ name, onBarcodeChange, caloryValue }) {
             placeholder="Amount"
             min="0"
             // required
-          />
-          <label htmlFor={`${name}Kcal`}></label>
+          /> */}
+          {/* <label htmlFor={`${name}Kcal`}></label>
           <Input
             id={`${name}Kcal`}
             name={`${name}Kcal`}
@@ -65,8 +71,8 @@ export default function AddMeals({ name, onBarcodeChange, caloryValue }) {
             placeholder="0 Kcal"
             min="0"
             // required
-          />
-          <p>{caloryValue}</p>
+          /> */}
+
           <button>Add ➕</button>
         </div>
       </form>

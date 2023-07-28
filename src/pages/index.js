@@ -11,15 +11,16 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const [barcode, setBarcode] = useState("4009337473736");
   // const [caloryValue, setCaloryValue] = useState("");
-
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data } = useSWR(
     `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=knowledge_panels`,
     fetcher
   );
+  let caloryValue = null;
   //3263859883713  42kcal
   //6161102031379 165kcal
   //4009337473736 138kcal
+  // function fetch({ data }) {
   if (data) {
     const { products } = data;
     const [firstItem] = products;
@@ -38,12 +39,10 @@ export default function Home() {
     const Kcal = matches[0];
     const caloryValue = Number(Kcal.match(/(\d+)/)[0]);
     // setCaloryValue(Number(Kcal.match(/(\d+)/)[0]));
-
-    // let Knumm = Knum[0];
-    // const FinalNum = Number(knumm);
-    console.log({ caloryValue });
+    console.log("caloryValueFromIndex;", caloryValue);
+    // return caloryValue;
   }
-
+  // }
   function handleBarcode(e) {
     // console.log("value", e.target.value);
     setBarcode(e.target.value);
@@ -51,27 +50,29 @@ export default function Home() {
 
   return (
     <>
-      <p>your goal for today: (number of kcal) Kcal</p>
       <AddMeals
         name="Breakfast"
         barcode={barcode}
         onBarcodeChange={handleBarcode}
-        // caloryValue={setCaloryValue}
+        caloryValue={caloryValue}
       />
       <AddMeals
         name="Dinner"
         barcode={barcode}
         onBarcodeChange={handleBarcode}
+        caloryValue={caloryValue}
       />
       <AddMeals
         name="Lunch"
         barcode={barcode}
         onBarcodeChange={handleBarcode}
+        caloryValue={caloryValue}
       />
       <AddMeals
         name="Snacks"
         barcode={barcode}
         onBarcodeChange={handleBarcode}
+        caloryValue={caloryValue}
       />
       <p>The total calories for today is: (number of kcal) Kcal</p>
     </>
