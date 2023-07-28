@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-export default function AddMeals({ name }) {
+export default function AddMeals({ name, onBarcodeChange, caloryValue }) {
   const [mealsData, setMealsData] = useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    s;
     setMealsData([...mealsData, data]);
     event.target.reset();
     console.log(data);
@@ -30,6 +31,15 @@ export default function AddMeals({ name }) {
 
       <form onSubmit={handleSubmit}>
         <div>
+          <label htmlFor={`${name}Barcode`}></label>
+          <Input
+            onChange={(e) => onBarcodeChange(e)}
+            id={`${name}Barcode`}
+            name={`${name}Barcode`}
+            type="text"
+            placeholder="Barcode"
+            // required
+          />
           <label htmlFor={`${name}Food`}></label>
           <Input
             id={`${name}Food`}
@@ -56,6 +66,7 @@ export default function AddMeals({ name }) {
             min="0"
             // required
           />
+          <p>{caloryValue}</p>
           <button>Add ➕</button>
         </div>
       </form>

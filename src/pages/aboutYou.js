@@ -1,34 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 
 export default function AboutYou() {
-  const [results, setResults] = useState();
-
+  const [results, setResults] = useState([]);
+  const [item, setItem] = useState([]);
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
+    setResults([...results, data]);
     event.target.reset();
-    setResults(data);
-    // const age = results.map((item) => item.age);
-
-    // const z = results.map((item) =>
-    //   item.gender == 0
-    //     ? (66.41 +
-    //         (13.75 * item.weight + 5.003 * item.height - 6.775 * item.age)) *
-    //       item.activity
-    //     : (655.1 +
-    //         (9.563 * item.weight + 1.85 * item.height - 4.676 * item.age)) *
-    //       item.activity
-    // );
-    console.log(data);
   }
   // function kcalCal(results) {
 
   //   return z;
   // }
-
+  useEffect(() => {
+    setItem(
+      results.map((item) =>
+        item.gender == 0
+          ? (66.41 +
+              (13.75 * item.weight + 5.003 * item.height - 6.775 * item.age)) *
+            item.activity
+          : (655.1 +
+              (9.563 * item.weight + 1.85 * item.height - 4.676 * item.age)) *
+            item.activity
+      )
+    );
+  }, [results]);
   return (
     <>
       <h2>How Many Calories You Burn Daily ?!</h2>
@@ -85,9 +85,13 @@ export default function AboutYou() {
               very hard exercise(sports & physical job or 2x training)
             </option>
           </select>
-          <h1></h1>
 
           <button>Calculate</button>
+          <h2>
+            {item.map((item) => {
+              return item;
+            })}
+          </h2>
         </div>
       </form>
     </>
