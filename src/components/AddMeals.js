@@ -2,8 +2,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+//// try to combine all state in one object
+
 export default function AddMeals({ name, handleTotalCalories }) {
-  const [mealsData, setMealsData] = useState([]);
+  const [mealsData, setMealsData] = useState([
+    // {
+    //   kcal: 0,
+    //   fat: 0,
+    //   carb: 0,
+    //   protein: 0,
+    // },
+  ]);
   const [calCalory, setCalCalory] = useState([]);
   const [calFat, setCalFat] = useState([]);
   const [calCarb, setCalCarb] = useState([]);
@@ -13,9 +22,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const form = Object.fromEntries(formData);
-    console.log(form);
     const updatedMealsData = [...mealsData, form];
-    // setMealsData((prevMealsData) => [...prevMealsData, form]);
     const totalKcal = updatedMealsData.reduce((total, item) => {
       const kcal = Number(item["Kcal"]);
       return total + kcal;
@@ -34,14 +41,18 @@ export default function AddMeals({ name, handleTotalCalories }) {
     }, 0);
     // -----------------
     // console.log(totalKcal);
+    // console.log("mealsdatakcal", mealsData.kcal);
+    // console.log("form.kcal", form.kcal);
+    // setMealsData({ kcal: mealsData.kcal + Number(form.kcal) });
     setMealsData(updatedMealsData);
     setCalCalory(totalKcal);
     setCalFat(totalFat);
     setCalCarb(totalCarb);
     setCalProtein(totalProtein);
+    // console.log("aftermealsdata", mealsData.kcal);
 
     event.target.reset();
-    console.log({ totalKcal });
+    // console.log({ totalKcal });
 
     // return handleTotalCalories(totalKcal);
   }
@@ -59,10 +70,14 @@ export default function AddMeals({ name, handleTotalCalories }) {
         ))}
       </ul>
 
-      <p>Kcal:{calCalory}</p>
+      <p>
+        kcal:
+        {calCalory}
+      </p>
       <p>Fat:{calFat}</p>
       <p>Carb:{calCarb}</p>
       <p>Protein:{calProtein}</p>
+      {/* <p>{mealsData.kcal}</p> */}
       <form onSubmit={handleSubmit}>
         <div>
           {/* <label htmlFor={`${name}Barcode`}></label>

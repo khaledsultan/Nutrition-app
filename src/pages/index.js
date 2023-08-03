@@ -57,22 +57,25 @@ export default function Home() {
     let a = rows[1].values;
     let fat = a[1];
     let b = fat.text;
-    let valueFat = Number(b.match(/(\d+\.\d+)/)[0]);
+    // /(\d+\.\d+)/
+    // /(\d+(\.\d+)?)/
+    let valueFat = Number(b.match(/(\d+(\.\d+)?)/)[0]);
+    console.log({ table_element });
     console.log({ valueFat });
     setDisplayFat(valueFat);
     // --------------
     let c = rows[3].values;
     let carb = c[1];
     let d = carb.text;
-    let valueCarb = Number(d.match(/(\d+\.\d+)/)[0]);
+    let valueCarb = Number(d.match(/(\d+(\.\d+)?)/)[0]);
     console.log({ valueCarb });
     setDisplayCarb(valueCarb);
     // --------------
     let x = rows[6].values;
     let protein = x[1];
     let y = protein.text;
-    let valueProtein = Number(y.match(/(\d+)/)[0]);
-    console.log({ y });
+    let valueProtein = Number(y.match(/(\d+(\.\d+)?)/)[0]);
+    console.log({ valueProtein });
     setDisplayProtein(valueProtein);
   };
   function handleTotalCalories(totalKcal) {
