@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-const Footer = styled.footer`
+const Mainer = styled.div`
   text-align: center;
   /* display: grid;
   gap: 0.5rem;
@@ -20,7 +20,10 @@ export default function Layout({ children }) {
   return (
     <>
       <Header>MyAPP</Header>
-      <Footer>{children}</Footer>
+
+      <Mainer>{children}</Mainer>
+
+      <footer></footer>
     </>
   );
 }

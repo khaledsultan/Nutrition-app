@@ -91,6 +91,9 @@ export default function AboutYou() {
           <button>Calculate</button>
           <h2>
             {item.map((item) => {
+              if (item == 0) {
+                return;
+              }
               return Math.round(item);
             })}
           </h2>
