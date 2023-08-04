@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 export default function Water() {
+  const [numberOfCups, setNumberOfCups] = useState();
   // cup cup-small
-  const cups = Array.from({ length: 8 });
+  function handleOnChange(e) {
+    e.preventDefault();
+    setNumberOfCups(e.target.value);
+
+    // console.log(formDataWater);
+  }
+
+  const cups = Array.from({ length: numberOfCups * 4 });
   const [clickedCups, setClickedCups] = useState([]);
   const handleCupClick = (cupIndex) => {
     if (clickedCups.includes(cupIndex)) {
@@ -18,7 +26,15 @@ export default function Water() {
 
   return (
     <>
-      <h3>Goal: 2 Liters</h3>
+      <h3>
+        Goal:
+        <input
+          type="number"
+          name="numberOfLiters"
+          onChange={handleOnChange}
+        ></input>{" "}
+        Liters
+      </h3>
       <div class="cups">
         {cups.map((item, index) => (
           <div
