@@ -1,18 +1,23 @@
 `use client`;
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import useLocalStorageState from "use-local-storage-state";
 //// try to combine all state in one object
 
 export default function AddMeals({ name, handleTotalCalories }) {
-  const [mealsData, setMealsData] = useState([
-    // {
-    //   kcal: 0,
-    //   fat: 0,
-    //   carb: 0,
-    //   protein: 0,
-    // },
-  ]);
+  const [mealsData, setMealsData] = useState([]);
+
+  // const [mealsData, setMealsData] = useLocalStorageState("mealsData", {
+  //   defaultValue: [],
+  // });
+
+  // {
+  //   kcal: 0,
+  //   fat: 0,
+  //   carb: 0,
+  //   protein: 0,
+  // },
+  // ]);
   const [calCalory, setCalCalory] = useState([]);
   const [calFat, setCalFat] = useState([]);
   const [calCarb, setCalCarb] = useState([]);
@@ -23,9 +28,8 @@ export default function AddMeals({ name, handleTotalCalories }) {
     const formData = new FormData(event.target);
     const form = Object.fromEntries(formData);
     const { Kcal } = form;
-    // console.log(Kcal);
+
     const updatedMealsData = [...mealsData, form];
-    // console.log(updatedMealsData);
 
     const totalKcal = updatedMealsData.reduce((total, item) => {
       const kcal = Number(item["Kcal"]);
@@ -65,8 +69,8 @@ export default function AddMeals({ name, handleTotalCalories }) {
       <ul>
         {mealsData.map((item, index) => (
           <li key={index}>
-            {item[`Food`]} - {item[`Amount`]} - {item[`Kcal`]} - {item[`Fat`]} -
-            {item[`Carb`]} -{item[`Protein`]}
+            {item["Food"]} - {item["Amount"]} - {item["Kcal"]} - {item["Fat"]} -
+            {item["Carb"]} -{item["Protein"]}
           </li>
         ))}
       </ul>
@@ -79,7 +83,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
       <p>Carb:{calCarb}</p>
       <p>Protein:{calProtein}</p>
       {/* <p>{mealsData.kcal}</p> */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(event) => handleSubmit(event, `${name}`)}>
         <div>
           {/* <label htmlFor={`${name}Barcode`}></label>
           <Input

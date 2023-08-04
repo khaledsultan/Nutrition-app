@@ -3,9 +3,11 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import AddMeals from "../components/AddMeals.js";
+import Water from "@/components/Water.js";
 import useSWR from "swr";
 import React, { useState } from "react";
 import { LocalStorageState } from "use-local-storage-state";
+import Link from "next/link.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +24,7 @@ export default function Home() {
     `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=knowledge_panels`,
     fetcher
   );
-  // console.log({ data });
+  console.log({ data });
   //3263859883713  42kcal
   //4009337473736 138kcal
   // ---------------------
@@ -81,6 +83,30 @@ export default function Home() {
 
   return (
     <>
+      <h1>Welcome back !!! </h1>
+      <p>(QUOTE OF TODAY)</p>
+      <ul>
+        <li>
+          <Link href="/breakfast">
+            Breakfast<span> ---- totalCaloriesFromBreakfast ----</span>
+          </Link>
+        </li>
+
+        <li>
+          Lunch<span> ---- totalCaloriesFromLunch ----</span>
+        </li>
+
+        <li>
+          Dinner<span> ---- totalCaloriesFromDinner ----</span>
+        </li>
+
+        <li>
+          Snacks<span> ---- totalCaloriesFromSnacks ----</span>
+        </li>
+      </ul>
+      <p>The total calories for today is: {totalCalories} Kcal</p>
+      <Water />
+      <hr />
       <input type="text" value={barcode} onChange={handleBarcode} />
       <button onClick={handleButtonClick}>submit</button>
       <ul>
@@ -95,6 +121,7 @@ export default function Home() {
       <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
       <p>The total calories for today is: {totalCalories} Kcal</p>
+      <hr />
     </>
   );
 }

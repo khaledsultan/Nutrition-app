@@ -1,6 +1,7 @@
 `use client`;
 
 import styled from "styled-components";
+import Navigation from "./Navigation.js";
 
 const Mainer = styled.div`
   text-align: center;
@@ -23,7 +24,7 @@ export default function Layout({ children }) {
 
       <Mainer>{children}</Mainer>
 
-      <footer></footer>
+      <Navigation />
     </>
   );
 }
