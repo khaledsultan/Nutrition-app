@@ -15,12 +15,8 @@ export default function Home() {
   const [displayFat, setDisplayFat] = useState("");
   const [displayCarb, setDisplayCarb] = useState("");
   const [displayProtein, setDisplayProtein] = useState("");
-  const [totalCalories, setTotalCalories] = useState("");
-  // const [mealsData, setMealsData] = useState([]);
-  // const [mealsData, setMealsData] = useLocalStorageState("mealsData", {
-  //   defaultValue: [],
-  // });
-  // const [caloryValue, setCaloryValue] = useState(null);
+  const [totalCalories, setTotalCalories] = useState([]);
+
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data } = useSWR(
     `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=knowledge_panels`,
@@ -57,8 +53,6 @@ export default function Home() {
     let a = rows[1].values;
     let fat = a[1];
     let b = fat.text;
-    // /(\d+\.\d+)/
-    // /(\d+(\.\d+)?)/
     let valueFat = Number(b.match(/(\d+(\.\d+)?)/)[0]);
     console.log({ table_element });
     console.log({ valueFat });
@@ -78,13 +72,13 @@ export default function Home() {
     console.log({ valueProtein });
     setDisplayProtein(valueProtein);
   };
-  function handleTotalCalories(totalKcal) {
-    console.log("1 :", totalKcal);
-    setTotalCalories([...totalCalories, totalKcal]);
+  function handleTotalCalories(Kcal) {
+    console.log("Kcal from index :", Kcal);
+    const updatedTotalCalories = Number(totalCalories) + Number(Kcal);
+    // console.log({ updatedTotalCalories });
+    setTotalCalories(updatedTotalCalories);
   }
-  // function handleAddMeals(newMeal) {
-  //   setMealsData([...mealsData, newMeal]);
-  // }
+
   return (
     <>
       <input type="text" value={barcode} onChange={handleBarcode} />
@@ -96,16 +90,10 @@ export default function Home() {
         <li>{displayProtein}</li>
       </ul>
 
-      <AddMeals
-        name="Breakfast"
-        handleTotalCalories={handleTotalCalories}
-        // barcode={barcode}
-        // onBarcodeChange={handleBarcode}
-      />
-      {/* <p>{mealsData.BreakfastAmount}</p> */}
-      <AddMeals name="Dinner" barcode={barcode} />
-      <AddMeals name="Lunch" barcode={barcode} />
-      <AddMeals name="Snacks" barcode={barcode} />
+      <AddMeals name="Breakfast" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
       <p>The total calories for today is: {totalCalories} Kcal</p>
     </>
   );

@@ -22,7 +22,11 @@ export default function AddMeals({ name, handleTotalCalories }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const form = Object.fromEntries(formData);
+    const { Kcal } = form;
+    // console.log(Kcal);
     const updatedMealsData = [...mealsData, form];
+    // console.log(updatedMealsData);
+
     const totalKcal = updatedMealsData.reduce((total, item) => {
       const kcal = Number(item["Kcal"]);
       return total + kcal;
@@ -43,24 +47,21 @@ export default function AddMeals({ name, handleTotalCalories }) {
     // console.log(totalKcal);
     // console.log("mealsdatakcal", mealsData.kcal);
     // console.log("form.kcal", form.kcal);
-    // setMealsData({ kcal: mealsData.kcal + Number(form.kcal) });
     setMealsData(updatedMealsData);
     setCalCalory(totalKcal);
     setCalFat(totalFat);
     setCalCarb(totalCarb);
     setCalProtein(totalProtein);
     // console.log("aftermealsdata", mealsData.kcal);
-
     event.target.reset();
     // console.log({ totalKcal });
 
-    // return handleTotalCalories(totalKcal);
+    return handleTotalCalories(Kcal);
   }
 
   return (
     <>
       <h2>{name}</h2>
-      {/* {caloryValue !== null && <p>Calories: {caloryValue} Kcal</p>} */}
       <ul>
         {mealsData.map((item, index) => (
           <li key={index}>
