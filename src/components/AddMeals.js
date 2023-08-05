@@ -27,7 +27,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const form = Object.fromEntries(formData);
-    const { Kcal } = form;
+    // const { Kcal } = form;
 
     const updatedMealsData = [...mealsData, form];
 
@@ -60,7 +60,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
     event.target.reset();
     // console.log({ totalKcal });
 
-    return handleTotalCalories(Kcal);
+    return handleTotalCalories(totalKcal, totalFat, totalCarb, totalProtein);
   }
 
   return (

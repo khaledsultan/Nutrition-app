@@ -87,13 +87,14 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  background-color: #d0e5f8;
+  /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 a {
@@ -190,4 +191,14 @@ a {
 .text {
   text-align: center;
   margin: 0 0 5px;
+}
+/* ///////////////////////////////// */
+
+/* /////////////////////////////////// */
+
+.Pie {
+position: fixed;
+top: 50%;
+right: 0;
+  width: 200px;
 }

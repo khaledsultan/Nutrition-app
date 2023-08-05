@@ -8,6 +8,7 @@ import useSWR from "swr";
 import React, { useState } from "react";
 import { LocalStorageState } from "use-local-storage-state";
 import Link from "next/link.js";
+import { PieChart } from "react-minimal-pie-chart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,11 @@ export default function Home() {
   const [displayFat, setDisplayFat] = useState("");
   const [displayCarb, setDisplayCarb] = useState("");
   const [displayProtein, setDisplayProtein] = useState("");
-  const [totalCalories, setTotalCalories] = useState([]);
+  // const [totalGlobalCalories, setTotalGlobalCalories] = useState([]);
+  const [totalCalory, setTotalCalory] = useState(0);
+  const [totalFat, setTotalFat] = useState(0);
+  const [totalCarb, setTotalCarb] = useState(0);
+  const [totalProtein, setTotalProtein] = useState(0);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data } = useSWR(
@@ -74,21 +79,41 @@ export default function Home() {
     console.log({ valueProtein });
     setDisplayProtein(valueProtein);
   };
-  function handleTotalCalories(Kcal) {
-    console.log("Kcal from index :", Kcal);
-    const updatedTotalCalories = Number(totalCalories) + Number(Kcal);
+  function handleTotalCalories(calCalory, calFat, calCarb, calProtein) {
+    console.log("Kcal from index :", calCalory);
+    const updatedTotalGlobalCalories = Number(totalCalory) + Number(calCalory);
+    const updatedTotalGlobalFat = Number(totalFat) + Number(calFat);
+    const updatedTotalGlobalCarb = Number(totalCarb) + Number(calCarb);
+    const updatedTotalGlobalProtein = Number(totalProtein) + Number(calProtein);
     // console.log({ updatedTotalCalories });
-    setTotalCalories(updatedTotalCalories);
+    // setTotalGlobalCalories(updatedTotalGlobalCalories);
+    setTotalCalory(updatedTotalGlobalCalories);
+    setTotalFat(updatedTotalGlobalFat);
+    setTotalCarb(updatedTotalGlobalCarb);
+    setTotalProtein(updatedTotalGlobalProtein);
   }
+  //////////////////////////
 
   return (
     <>
       <h1>Welcome back !!! </h1>
       <p>(QUOTE OF TODAY)</p>
-      <ul>
+      <div className="Pie">
+        <PieChart
+          label={({ dataEntry }) => dataEntry.value}
+          labelStyle={{ color: "#E38627" }}
+          data={[
+            { title: "Total Fat", value: totalFat, color: "#E38627" },
+            { title: "Total Carb", value: totalCarb, color: "#C13C37" },
+            { title: "Total Protein", value: totalProtein, color: "#6A2135" },
+          ]}
+        />
+      </div>
+
+      {/* <ul>
         <li>
           <Link href="/breakfast">
-            Breakfast<span> ---- totalCaloriesFromBreakfast ----</span>
+            Breakfast<span> ---- {totalCalory} ----</span>
           </Link>
         </li>
 
@@ -104,7 +129,7 @@ export default function Home() {
           Snacks<span> ---- totalCaloriesFromSnacks ----</span>
         </li>
       </ul>
-      <p>The total calories for today is: {totalCalories} Kcal</p>
+      <p>The total calories for today is: {totalGlobalCalories} Kcal</p> */}
       <Water />
       <hr />
       <input type="text" value={barcode} onChange={handleBarcode} />
@@ -115,12 +140,14 @@ export default function Home() {
         <li>{displayCarb}</li>
         <li>{displayProtein}</li>
       </ul>
-
       <AddMeals name="Breakfast" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
-      <p>The total calories for today is: {totalCalories} Kcal</p>
+      <p>The total calories for today is: {totalCalory} Kcal</p>
+      <p>The total fat for today is: {totalFat} Kcal</p>
+      <p>The total carb for today is: {totalCarb} Kcal</p>
+      <p>The total protein for today is: {totalProtein} Kcal</p>
       <hr />
     </>
   );
