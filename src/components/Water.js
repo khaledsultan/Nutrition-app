@@ -27,7 +27,7 @@ export default function Water() {
   return (
     <>
       <h3>
-        Goal:
+        Goal of water:
         <input
           type="number"
           name="numberOfLiters"

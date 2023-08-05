@@ -8,7 +8,8 @@ import useSWR from "swr";
 import React, { useState } from "react";
 import { LocalStorageState } from "use-local-storage-state";
 import Link from "next/link.js";
-import { PieChart } from "react-minimal-pie-chart";
+import { PieChart, pieChartDefaultProps } from "react-minimal-pie-chart";
+import ProgressBar from "react-customizable-progressbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function Home() {
   const [totalFat, setTotalFat] = useState(0);
   const [totalCarb, setTotalCarb] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
+  const [goal, setGoal] = useState(0);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data } = useSWR(
@@ -92,20 +94,65 @@ export default function Home() {
     setTotalCarb(updatedTotalGlobalCarb);
     setTotalProtein(updatedTotalGlobalProtein);
   }
+  function kcalhandleKcalOnChange(e) {
+    e.preventDefault();
+    setGoal(e.target.value);
+  }
   //////////////////////////
 
   return (
     <>
       <h1>Welcome back !!! </h1>
       <p>(QUOTE OF TODAY)</p>
+
+      <h3>
+        Goal of Calories:
+        <input
+          min={0}
+          type="number"
+          name="numberOfKcal"
+          onChange={kcalhandleKcalOnChange}
+        ></input>
+        Kcal
+      </h3>
+      <p>The total calories for today is: {totalCalory} Kcal</p>
+      <ProgressBar progress={(totalCalory * 100) / goal} radius={100} />
       <div className="Pie">
+        <h2>
+          From you total KCal how many carb kcal ,fat kcal and protrin kcal?
+        </h2>
         <PieChart
           label={({ dataEntry }) => dataEntry.value}
-          labelStyle={{ color: "#E38627" }}
+          labelStyle={{ fontSize: "10px" }}
+          data={[
+            { title: "Total Fat", value: 9 * totalFat, color: "#E38627" },
+            { title: "Total Carb", value: 4 * totalCarb, color: "#C13C37" },
+            {
+              title: "Total Protein",
+              value: 4 * totalProtein,
+              color: "#6A2135",
+            },
+          ]}
+        />
+      </div>
+      <div className="Pie_2">
+        <h2>
+          From you total KCal how many g of carb, g of fat and g of protrin ?
+        </h2>
+
+        <PieChart
+          label={({ dataEntry }) => dataEntry.value}
+          animationDuration="5000"
+          animationEasing="ease-out"
+          labelStyle={{ fontSize: "10px" }}
           data={[
             { title: "Total Fat", value: totalFat, color: "#E38627" },
             { title: "Total Carb", value: totalCarb, color: "#C13C37" },
-            { title: "Total Protein", value: totalProtein, color: "#6A2135" },
+            {
+              title: "Total Protein",
+              value: totalProtein,
+              color: "#6A2135",
+            },
           ]}
         />
       </div>
@@ -144,10 +191,9 @@ export default function Home() {
       <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
       <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
-      <p>The total calories for today is: {totalCalory} Kcal</p>
-      <p>The total fat for today is: {totalFat} Kcal</p>
-      <p>The total carb for today is: {totalCarb} Kcal</p>
-      <p>The total protein for today is: {totalProtein} Kcal</p>
+      <p>The total fat for today is: {totalFat} g</p>
+      <p>The total carb for today is: {totalCarb} g</p>
+      <p>The total protein for today is: {totalProtein} g</p>
       <hr />
     </>
   );
