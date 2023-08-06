@@ -12,6 +12,7 @@ import { PieChart, pieChartDefaultProps } from "react-minimal-pie-chart";
 import ProgressBar from "react-customizable-progressbar";
 
 const inter = Inter({ subsets: ["latin"] });
+// const handlee = Handlee({ subsets: ["cursive"] });
 
 export default function Home() {
   const [barcode, setBarcode] = useState("4009337473736");
@@ -104,23 +105,27 @@ export default function Home() {
     <>
       <h1>Welcome back !!! </h1>
       <p>(QUOTE OF TODAY)</p>
-
-      <h3>
-        Goal of Calories:
-        <input
-          min={0}
-          type="number"
-          name="numberOfKcal"
-          onChange={kcalhandleKcalOnChange}
-        ></input>
-        Kcal
-      </h3>
-      <p>The total calories for today is: {totalCalory} Kcal</p>
-      <ProgressBar progress={(totalCalory * 100) / goal} radius={100} />
-      <div className="Pie">
-        <h2>
-          From you total KCal how many carb kcal ,fat kcal and protrin kcal?
-        </h2>
+      <div>
+        <h3>
+          Goal of Calories:
+          <input
+            min={0}
+            type="number"
+            name="numberOfKcal"
+            onChange={kcalhandleKcalOnChange}
+          ></input>
+          Kcal
+        </h3>
+        <p>
+          Calories left:<strong>{goal - totalCalory}</strong> Kcal
+        </p>
+        <ProgressBar progress={(totalCalory * 100) / goal} radius={100} />
+        <div className="Pie">
+          <h2>
+            From you total KCal how many carb kcal ,fat kcal and protrin kcal?
+          </h2>
+          <Water />
+        </div>
         <PieChart
           label={({ dataEntry }) => dataEntry.value}
           labelStyle={{ fontSize: "10px" }}
@@ -157,27 +162,6 @@ export default function Home() {
         />
       </div>
 
-      {/* <ul>
-        <li>
-          <Link href="/breakfast">
-            Breakfast<span> ---- {totalCalory} ----</span>
-          </Link>
-        </li>
-
-        <li>
-          Lunch<span> ---- totalCaloriesFromLunch ----</span>
-        </li>
-
-        <li>
-          Dinner<span> ---- totalCaloriesFromDinner ----</span>
-        </li>
-
-        <li>
-          Snacks<span> ---- totalCaloriesFromSnacks ----</span>
-        </li>
-      </ul>
-      <p>The total calories for today is: {totalGlobalCalories} Kcal</p> */}
-      <Water />
       <hr />
       <input type="text" value={barcode} onChange={handleBarcode} />
       <button onClick={handleButtonClick}>submit</button>

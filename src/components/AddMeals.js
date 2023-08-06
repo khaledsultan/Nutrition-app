@@ -65,27 +65,30 @@ export default function AddMeals({ name, handleTotalCalories }) {
 
   return (
     <>
-      <h2>{name}</h2>
-      <ul>
-        {mealsData.map((item, index) => (
-          <li key={index}>
-            {item["Food"]} - {item["Amount"]} - {item["Kcal"]} - {item["Fat"]} -
-            {item["Carb"]} -{item["Protein"]}
-          </li>
-        ))}
-      </ul>
+      <section className="add_meals">
+        <h2 className="add_meals_name">{name}</h2>
+        <div className="add_meals_result">
+          <p>⚡ {calCalory}</p>
+          <p>🧈 {calFat}</p>
+          <p>🍚 {calCarb}</p>
+          <p>🥩 {calProtein}</p>
+        </div>
+        <ul>
+          {mealsData.map((item, index) => (
+            <li className="add_meals_list" key={index}>
+              <span className="add_meals_span">{item["Food"]}</span>
+              <span className="span">{item["Amount"]}</span>
+              <span className="span">{item["Kcal"]}</span>
+              <span className="span">{item["Fat"]}</span>
+              <span className="span">{item["Carb"]}</span>
+              <span className="span">{item["Protein"]}</span>
+            </li>
+          ))}
+        </ul>
 
-      <p>
-        kcal:
-        {calCalory}
-      </p>
-      <p>Fat:{calFat}</p>
-      <p>Carb:{calCarb}</p>
-      <p>Protein:{calProtein}</p>
-      {/* <p>{mealsData.kcal}</p> */}
-      <form onSubmit={(event) => handleSubmit(event, `${name}`)}>
-        <div>
-          {/* <label htmlFor={`${name}Barcode`}></label>
+        <form onSubmit={(event) => handleSubmit(event, `${name}`)}>
+          <div>
+            {/* <label htmlFor={`${name}Barcode`}></label>
           <Input
             onSubmit={(e) => onBarcodeChange(e)}
             id={`${name}Barcode`}
@@ -94,72 +97,72 @@ export default function AddMeals({ name, handleTotalCalories }) {
             placeholder="Barcode"
             // required
           /> */}
-          <label htmlFor={`${name}Food`}></label>
-          <Input
-            id={`${name}Food`}
-            name="Food"
-            type="text"
-            placeholder="Food Item "
-            // required
-          />
-          <label htmlFor={`${name}Amount`}></label>
-          <Input
-            id={`${name}Amount`}
-            name="Amount"
-            type="number"
-            placeholder="Amount"
-            min="0"
-            // required
-          />
-          <label htmlFor={`${name}Kcal`}></label>
-          <Input
-            id={`${name}Kcal`}
-            name="Kcal"
-            type="number"
-            placeholder="0 Kcal"
-            min="0"
-            // required
-          />
-          <label htmlFor={`${name}Fat`}></label>
-          <Input
-            id={`${name}Fat`}
-            name="Fat"
-            type="number"
-            placeholder="0 Fat"
-            min="0"
-            // required
-          />
-          <label htmlFor={`${name}Carb`}></label>
-          <Input
-            id={`${name}Carb`}
-            name="Carb"
-            type="number"
-            placeholder="0 Carb"
-            min="0"
-            // required
-          />
-          <label htmlFor={`${name}Protein`}></label>
-          <Input
-            id={`${name}Protein`}
-            name="Protein"
-            type="number"
-            placeholder="0 Protein"
-            min="0"
-            // required
-          />
+            <label htmlFor={`${name}Food`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Food`}
+              name="Food"
+              type="text"
+              placeholder="    Food Item "
+              // required
+            />
+            <label htmlFor={`${name}Amount`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Amount`}
+              name="Amount"
+              type="number"
+              placeholder="    Amount"
+              min="0"
+              // required
+            />
+            <label htmlFor={`${name}Kcal`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Kcal`}
+              name="Kcal"
+              type="number"
+              placeholder="    0 Kcal"
+              min="0"
+              // required
+            />
+            <label htmlFor={`${name}Fat`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Fat`}
+              name="Fat"
+              type="number"
+              placeholder="    0 g Fat "
+              min="0"
+              // required
+            />
+            <label htmlFor={`${name}Carb`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Carb`}
+              name="Carb"
+              type="number"
+              placeholder="    0 g Carb"
+              min="0"
+              // required
+            />
+            <label htmlFor={`${name}Protein`}></label>
+            <input
+              className="add_meals_form_input"
+              id={`${name}Protein`}
+              name="Protein"
+              type="number"
+              placeholder="    0 g Protein"
+              min="0"
+              // required
+            />
 
-          <button type="submit">Add ➕</button>
-        </div>
-      </form>
-
-      <hr />
+            <button type="submit" className="add_meals_button">
+              +
+            </button>
+          </div>
+        </form>
+      </section>
     </>
   );
-  s;
 }
-
-const Input = styled.input`
-  border: none;
-  border-bottom: solid 1px grey;
-  margin: 2%;
-`;
