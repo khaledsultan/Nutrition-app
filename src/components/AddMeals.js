@@ -1,14 +1,14 @@
 `use client`;
 import React, { useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 //// try to combine all state in one object
 
-export default function AddMeals({ name, handleTotalCalories }) {
-  const [mealsData, setMealsData] = useState([]);
-
-  // const [mealsData, setMealsData] = useLocalStorageState("mealsData", {
-  //   defaultValue: [],
-  // });
+export default function AddMeals({
+  name,
+  handleTotalCalories,
+  meals,
+  onAddMeal,
+}) {
+  // const [mealsData, setMealsData] = useState([]);
 
   // {
   //   kcal: 0,
@@ -28,7 +28,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
     const form = Object.fromEntries(formData);
     // const { Kcal } = form;
 
-    const updatedMealsData = [...mealsData, form];
+    const updatedMealsData = [...meals, form];
 
     const totalKcal = updatedMealsData.reduce((total, item) => {
       const kcal = Number(item["Kcal"]);
@@ -47,10 +47,10 @@ export default function AddMeals({ name, handleTotalCalories }) {
       return total + protein;
     }, 0);
     // -----------------
-    // console.log(totalKcal);
     // console.log("mealsdatakcal", mealsData.kcal);
     // console.log("form.kcal", form.kcal);
-    setMealsData(updatedMealsData);
+    onAddMeal(form);
+    console.log({ updatedMealsData });
     setCalCalory(totalKcal);
     setCalFat(totalFat);
     setCalCarb(totalCarb);
@@ -73,7 +73,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
           <p>🥩 {calProtein}</p>
         </div>
         <ul>
-          {mealsData.map((item, index) => (
+          {meals.map((item, index) => (
             <li className="add_meals_list" key={index}>
               <span className="add_meals_span">{item["Food"]}</span>
               <span className="span">{item["Amount"]}</span>
@@ -156,6 +156,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               min="0"
               required
             />
+            <input type="hidden" name="name" value={name}></input>
 
             <button type="submit" className="add_meals_button">
               +

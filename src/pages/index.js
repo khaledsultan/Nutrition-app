@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import AddMeals from "../components/AddMeals.js";
+import useLocalStorageState from "use-local-storage-state";
 
 import useSWR from "swr";
 import React, { useState } from "react";
@@ -13,9 +14,16 @@ import ProgressBar from "react-customizable-progressbar";
 
 const inter = Inter({ subsets: ["latin"] });
 // const handlee = Handlee({ subsets: ["cursive"] });
+const filterMeals = (meals, category) =>
+  meals.filter((meal) => meal.name === category);
 
 export default function Home() {
-  const [barcode, setBarcode] = useState("4009337473736");
+  //3263859883713  42kcal
+  //4009337473736 138kcal
+  const [barcode, setBarcode] = useState("3263859883713");
+  const [meals, setMeals] = useLocalStorageState("mealsData", {
+    defaultValue: [],
+  });
   const [displayValue, setDisplayValue] = useState("");
   const [displayFat, setDisplayFat] = useState("");
   const [displayCarb, setDisplayCarb] = useState("");
@@ -33,8 +41,11 @@ export default function Home() {
     fetcher
   );
   console.log({ data });
-  //3263859883713  42kcal
-  //4009337473736 138kcal
+
+  // ---------------------
+  function handleAddMeal(meal) {
+    setMeals([...meals, meal]);
+  }
   // ---------------------
 
   function handleBarcode(e) {
@@ -164,10 +175,30 @@ export default function Home() {
         />
       </div>
 
-      <AddMeals name="Breakfast" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
+      <AddMeals
+        name="Breakfast"
+        handleTotalCalories={handleTotalCalories}
+        meals={filterMeals(meals, "Breakfast")}
+        onAddMeal={handleAddMeal}
+      />
+      <AddMeals
+        name="Lunch"
+        handleTotalCalories={handleTotalCalories}
+        meals={filterMeals(meals, "Lunch")}
+        onAddMeal={handleAddMeal}
+      />
+      <AddMeals
+        name="Dinner"
+        handleTotalCalories={handleTotalCalories}
+        meals={filterMeals(meals, "Dinner")}
+        onAddMeal={handleAddMeal}
+      />
+      <AddMeals
+        name="Snacks"
+        handleTotalCalories={handleTotalCalories}
+        meals={filterMeals(meals, "Snacks")}
+        onAddMeal={handleAddMeal}
+      />
       <input type="text" value={barcode} onChange={handleBarcode} />
       <button onClick={handleButtonClick}>submit</button>
       <ul>

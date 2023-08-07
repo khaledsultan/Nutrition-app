@@ -94,7 +94,9 @@ body {
   text-align: center;
   color:#F1F1F1;
   background-color:#9BA4B5;
-  background-image: linear-gradient( #9BA4B5,black);
+  /* background-image: linear-gradient( #9BA4B5,black); */
+  background-image: linear-gradient( #b2bed4,rgb(62, 61, 61));
+
   background-repeat: no-repeat;
   background-size: cover
   /* background-color: #0F3D3E; */
