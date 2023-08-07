@@ -4,26 +4,13 @@ import styled from "styled-components";
 
 export default function Navigation() {
   return (
-    <StyledNav>
-      <StyledLink href="/">HOME PAGE</StyledLink>
-      <StyledLink href="/aboutYou">ABOUT YOU</StyledLink>
-    </StyledNav>
+    <nav>
+      <div>
+        <Link href="/"> HOME PAGE </Link>
+      </div>
+      <div>
+        <Link href="/aboutYou"> ABOUT YOU </Link>
+      </div>
+    </nav>
   );
 }
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-  font-size: 30px;
-  text-shadow: #fc0 10px 0 10px;
-  &:hover {
-    color: #cddce6;
-  }
-`;
-
-const StyledNav = styled.nav`
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin: 30px 30px;
-`;

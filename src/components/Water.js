@@ -25,15 +25,15 @@ export default function Water() {
   }
 
   return (
-    <>
+    <div className="WaterGoal_container">
       <h3>
-        Goal of water:
+        Enter Your Goal of water:
         <input
           type="number"
           name="numberOfLiters"
           onChange={handleOnChange}
+          placeholder="2 Liter"
         ></input>{" "}
-        Liters
       </h3>
       <div class="cups">
         {cups.map((item, index) => (
@@ -46,6 +46,6 @@ export default function Water() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 `use client`;
 import React, { useState } from "react";
-import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
 //// try to combine all state in one object
 
@@ -104,7 +103,8 @@ export default function AddMeals({ name, handleTotalCalories }) {
               name="Food"
               type="text"
               placeholder="    Food Item "
-              // required
+              color="white"
+              required
             />
             <label htmlFor={`${name}Amount`}></label>
             <input
@@ -114,7 +114,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               type="number"
               placeholder="    Amount"
               min="0"
-              // required
+              required
             />
             <label htmlFor={`${name}Kcal`}></label>
             <input
@@ -124,7 +124,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               type="number"
               placeholder="    0 Kcal"
               min="0"
-              // required
+              required
             />
             <label htmlFor={`${name}Fat`}></label>
             <input
@@ -134,7 +134,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               type="number"
               placeholder="    0 g Fat "
               min="0"
-              // required
+              required
             />
             <label htmlFor={`${name}Carb`}></label>
             <input
@@ -144,7 +144,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               type="number"
               placeholder="    0 g Carb"
               min="0"
-              // required
+              required
             />
             <label htmlFor={`${name}Protein`}></label>
             <input
@@ -154,7 +154,7 @@ export default function AddMeals({ name, handleTotalCalories }) {
               type="number"
               placeholder="    0 g Protein"
               min="0"
-              // required
+              required
             />
 
             <button type="submit" className="add_meals_button">

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import AddMeals from "../components/AddMeals.js";
-import Water from "@/components/Water.js";
+
 import useSWR from "swr";
 import React, { useState } from "react";
 import { LocalStorageState } from "use-local-storage-state";
@@ -104,28 +104,30 @@ export default function Home() {
   return (
     <>
       <h1>Welcome back !!! </h1>
-      <p>(QUOTE OF TODAY)</p>
-      <div>
+      <p className="quots"> “ It is Not Diet, It is A Lifestyle Change”</p>
+      {/* <section className="goals_container"> */}
+      <div className="KcalGoal_container">
         <h3>
-          Goal of Calories:
+          Enter Your Goal of Calories:
           <input
             min={0}
             type="number"
             name="numberOfKcal"
+            placeholder="2000 KCal"
             onChange={kcalhandleKcalOnChange}
           ></input>
-          Kcal
         </h3>
+        <ProgressBar progress={(totalCalory * 100) / goal} radius={100} />
         <p>
           Calories left:<strong>{goal - totalCalory}</strong> Kcal
         </p>
-        <ProgressBar progress={(totalCalory * 100) / goal} radius={100} />
-        <div className="Pie">
-          <h2>
-            From you total KCal how many carb kcal ,fat kcal and protrin kcal?
-          </h2>
-          <Water />
-        </div>
+      </div>
+      {/* </section> */}
+
+      <div className="Pie">
+        {/* <h2>
+          From you total KCal how many carb kcal ,fat kcal and protrin kcal?
+        </h2> */}
         <PieChart
           label={({ dataEntry }) => dataEntry.value}
           labelStyle={{ fontSize: "10px" }}
@@ -141,9 +143,9 @@ export default function Home() {
         />
       </div>
       <div className="Pie_2">
-        <h2>
+        {/* <h2>
           From you total KCal how many g of carb, g of fat and g of protrin ?
-        </h2>
+        </h2> */}
 
         <PieChart
           label={({ dataEntry }) => dataEntry.value}
@@ -162,7 +164,10 @@ export default function Home() {
         />
       </div>
 
-      <hr />
+      <AddMeals name="Breakfast" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
+      <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
       <input type="text" value={barcode} onChange={handleBarcode} />
       <button onClick={handleButtonClick}>submit</button>
       <ul>
@@ -171,14 +176,6 @@ export default function Home() {
         <li>{displayCarb}</li>
         <li>{displayProtein}</li>
       </ul>
-      <AddMeals name="Breakfast" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Dinner" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Lunch" handleTotalCalories={handleTotalCalories} />
-      <AddMeals name="Snacks" handleTotalCalories={handleTotalCalories} />
-      <p>The total fat for today is: {totalFat} g</p>
-      <p>The total carb for today is: {totalCarb} g</p>
-      <p>The total protein for today is: {totalProtein} g</p>
-      <hr />
     </>
   );
 }
