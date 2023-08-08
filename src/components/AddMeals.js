@@ -179,10 +179,10 @@ export default function AddMeals({
             </button>
           </div>
         </form>
-        <button onClick={handleStartStopScanning}>Start Scanning</button>
+        {/* <button onClick={handleStartStopScanning}>Start Scanning</button>
 
         {scannedBarcode && <p>Scanned Barcode: {scannedBarcode}</p>}
-        <BarcodeScanner onDetected={handleBarcodeDetected} />
+        <BarcodeScanner onDetected={handleBarcodeDetected} /> */}
       </section>
     </>
   );

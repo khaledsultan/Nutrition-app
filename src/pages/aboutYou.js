@@ -1,9 +1,5 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { useState } from "react";
-import Water from "@/components/Water.js";
-import useLocalStorageState from "use-local-storage-state";
-import { Kaisei_Decol } from "next/font/google";
 
 export default function AboutYou() {
   // const [results, setResults] = useLocalStorageState(
@@ -11,6 +7,8 @@ export default function AboutYou() {
   // );
   const [results, setResults] = useState([]);
   const [item, setItem] = useState([]);
+  const [days, setDays] = useState([]);
+
   // const [item, setItem] = useLocalStorageState(("item", { defaultValue: [] }));
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,6 +28,11 @@ export default function AboutYou() {
           : (655.1 +
               (9.563 * item.weight + 1.85 * item.height - 4.676 * item.age)) *
             item.activity
+      )
+    );
+    setDays(
+      results.map(
+        (item) => (Math.abs(item.weight - item.goalWeight) * 7700) / 500
       )
     );
   }, [results]);
@@ -77,6 +80,16 @@ export default function AboutYou() {
             min="0"
             required
           />
+          <label htmlFor="goalWeight"></label>
+          <input
+            className="aboutYou_input"
+            id="goalWeight"
+            name="goalWeight"
+            type="number"
+            placeholder="Goal Weight in kg"
+            min="0"
+            required
+          />
           <div>
             <label htmlFor="activity">Select your activity level:</label>
             <select id="activity" name="activity">
@@ -114,12 +127,23 @@ export default function AboutYou() {
               if (item == 0) {
                 return;
               }
-              return Math.round(item) + "Kcal";
+              return Math.round(item) + " Kcal.";
+            })}
+          </h2>
+          <h2>
+            {days.map((item) => {
+              if (item == 0) {
+                return;
+              }
+              return (
+                "You need approximately " +
+                Math.round(item) +
+                " days to reach you goal weight."
+              );
             })}
           </h2>
         </div>
       </form>
-      <Water />
     </>
   );
 }

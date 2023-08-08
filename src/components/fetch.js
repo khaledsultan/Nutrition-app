@@ -50,7 +50,7 @@
 //     let valueProtein = Number(y.match(/(\d+(\.\d+)?)/)[0]);
 //     console.log({ valueProtein });
 //     setDisplayProtein(valueProtein);
-
+// }
 //   return (
 //     <>
 //       <video ref={videoRef} style={{ width: "100%", height: "auto" }} />
@@ -68,4 +68,4 @@
 //       </div>
 //     </>
 //   );
-// };
+// }

@@ -1,13 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import AddMeals from "../components/AddMeals.js";
 import useLocalStorageState from "use-local-storage-state";
-import useSWR from "swr";
 import React, { useState } from "react";
 import { PieChart, pieChartDefaultProps } from "react-minimal-pie-chart";
 import ProgressBar from "react-customizable-progressbar";
+import Water from "@/components/Water.js";
 import BarcodeScanner from "../components/BarcodeScanner.js";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,7 +34,60 @@ export default function Home() {
   const [showSnacks, setShowSnacks] = useState(false);
   const [showPie, setShowPie] = useState(false);
   const [showProgressBar, setShowProgressBar] = useState(false);
+  // const [barcode, setBarcode] = useState("4009337473736");
 
+  // const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  // const { data } = useSWR(
+  //   `https://world.openfoodfacts.org/api/v2/search?code=${barcode}&fields=knowledge_panels`,
+  //   fetcher
+  // );
+  // console.log("barcode:", data);
+
+  // function handleBarcode(e) {
+  //   console.log("value", e.target.value);
+  //   setBarcode(e.target.value);
+  // }
+  // const handleButtonClick = () => {
+  //   let { products } = data;
+  //   let [firstItem] = products;
+  //   let { knowledge_panels } = firstItem;
+  //   let { nutrition_facts_table } = knowledge_panels;
+  //   let { elements } = nutrition_facts_table;
+  //   let table = elements[0];
+  //   let { table_element } = table;
+  //   let { rows } = table_element;
+  //   let value = rows[0];
+  //   let { values } = value;
+  //   let calory = values[1];
+  //   let num = calory.text;
+  //   let matches = num.match(/\(([^)]+)\)/);
+  //   let Kcal = matches[0];
+  //   let valueData = Number(Kcal.match(/(\d+)/)[0]);
+  //   console.log("caloryValueFromIndex;", valueData);
+  //   setDisplayValue(valueData);
+  //   // --------------
+  //   let a = rows[1].values;
+  //   let fat = a[1];
+  //   let b = fat.text;
+  //   let valueFat = Number(b.match(/(\d+(\.\d+)?)/)[0]);
+  //   console.log({ table_element });
+  //   console.log({ valueFat });
+  //   setDisplayFat(valueFat);
+  //   // --------------
+  //   let c = rows[3].values;
+  //   let carb = c[1];
+  //   let d = carb.text;
+  //   let valueCarb = Number(d.match(/(\d+(\.\d+)?)/)[0]);
+  //   console.log({ valueCarb });
+  //   setDisplayCarb(valueCarb);
+  //   // --------------
+  //   let x = rows[6].values;
+  //   let protein = x[1];
+  //   let y = protein.text;
+  //   let valueProtein = Number(y.match(/(\d+(\.\d+)?)/)[0]);
+  //   console.log({ valueProtein });
+  //   setDisplayProtein(valueProtein);
+  // };
   // console.log({ data });
 
   // ---------------------
@@ -103,7 +155,7 @@ export default function Home() {
               className="KcalGoal_progressbar"
               progress={(totalCalory * 100) / goal}
               radius={100}
-              transition="0.3s ease"
+              // transition="0.3s ease"
             />
             <p>
               Calories left:<strong>{goal - totalCalory}</strong> Kcal
@@ -223,6 +275,7 @@ export default function Home() {
             />
           </div>
         )}
+        <Water />
       </div>
     </>
   );
