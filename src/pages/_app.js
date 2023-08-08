@@ -1,5 +1,7 @@
 import "@/styles/globals.css";
 import Layout from "../components/Layout.js";
+import { Provider } from "react-redux";
+import store from "../redux/store.js";
 // import { Inter, Handlee, Merriweather, IBM } from "next/font/google";
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -8,9 +10,11 @@ import Layout from "../components/Layout.js";
 export default function App({ Component, pageProps }) {
   return (
     <>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <Provider store={store}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </Provider>
     </>
   );
 }

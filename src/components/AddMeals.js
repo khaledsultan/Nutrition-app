@@ -1,12 +1,16 @@
 `use client`;
 import React, { useState } from "react";
-//// try to combine all state in one object
+// import Barcode from "./BarcodeScanner.js/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { scanBarcode } from "../redux/store"; //// try to combine all state in one object
+import BarcodeScanner from "./BarcodeScanner.js";
 
 export default function AddMeals({
   name,
   handleTotalCalories,
   meals,
   onAddMeal,
+  handleShowPie,
 }) {
   // const [mealsData, setMealsData] = useState([]);
 
@@ -21,6 +25,17 @@ export default function AddMeals({
   const [calFat, setCalFat] = useState([]);
   const [calCarb, setCalCarb] = useState([]);
   const [calProtein, setCalProtein] = useState([]);
+  // -------------
+  // const [scanning, setScanning] = useState(false);
+  const dispatch = useDispatch();
+  const scannedBarcode = useSelector((state) => state.scannedBarcode);
+
+  const handleBarcodeDetected = (barcodeData) => {
+    dispatch(scanBarcode(barcodeData));
+  };
+  const handleStartStopScanning = () => {
+    dispatch(scanBarcode(null)); // Reset scanned barcode
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -55,6 +70,7 @@ export default function AddMeals({
     setCalFat(totalFat);
     setCalCarb(totalCarb);
     setCalProtein(totalProtein);
+    handleShowPie(true);
     // console.log("aftermealsdata", mealsData.kcal);
     event.target.reset();
     // console.log({ totalKcal });
@@ -163,6 +179,10 @@ export default function AddMeals({
             </button>
           </div>
         </form>
+        <button onClick={handleStartStopScanning}>Start Scanning</button>
+
+        {scannedBarcode && <p>Scanned Barcode: {scannedBarcode}</p>}
+        <BarcodeScanner onDetected={handleBarcodeDetected} />
       </section>
     </>
   );
