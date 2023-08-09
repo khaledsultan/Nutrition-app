@@ -106,6 +106,9 @@ export default function Home() {
   function toggleSnacks() {
     setShowSnacks(!showSnacks);
   }
+  function toggleSummary() {
+    setShowPie(!showPie);
+  }
 
   // ---------------------
 
@@ -140,7 +143,7 @@ export default function Home() {
       {/* <section className="goals_container"> */}
       <div className="KcalGoal_container">
         <h3>
-          Enter Your Goal of Calories:
+          Enter Your Goal of Calories⚡:
           <input
             min={0}
             type="number"
@@ -164,50 +167,6 @@ export default function Home() {
         )}
       </div>
       {/* </section> */}
-      {showPie && (
-        <div>
-          <div className="Pie">
-            {/* <h2>
-          From you total KCal how many carb kcal ,fat kcal and protrin kcal?
-        </h2> */}
-            <PieChart
-              label={({ dataEntry }) => dataEntry.value}
-              labelStyle={{ fontSize: "10px" }}
-              data={[
-                { title: "Total Fat", value: 9 * totalFat, color: "#E38627" },
-                { title: "Total Carb", value: 4 * totalCarb, color: "#C13C37" },
-                {
-                  title: "Total Protein",
-                  value: 4 * totalProtein,
-                  color: "#6A2135",
-                },
-              ]}
-            />
-          </div>
-
-          <div className="Pie_2">
-            {/* <h2>
-          From you total KCal how many g of carb, g of fat and g of protrin ?
-        </h2> */}
-
-            <PieChart
-              label={({ dataEntry }) => dataEntry.value}
-              animationDuration="5000"
-              animationEasing="ease-out"
-              labelStyle={{ fontSize: "10px" }}
-              data={[
-                { title: "Total Fat", value: totalFat, color: "#E38627" },
-                { title: "Total Carb", value: totalCarb, color: "#C13C37" },
-                {
-                  title: "Total Protein",
-                  value: totalProtein,
-                  color: "#6A2135",
-                },
-              ]}
-            />
-          </div>
-        </div>
-      )}
 
       <div>
         <button className="toggleAddMeals_button" onClick={toggleBreakfast}>
@@ -273,6 +232,58 @@ export default function Home() {
               onAddMeal={handleAddMeal}
               handleShowPie={handleShowPie}
             />
+          </div>
+        )}
+        <button
+          className="toggleAddMeals_button_Summary"
+          onClick={toggleSummary}
+        >
+          ➡️Summary
+        </button>
+        {showPie && (
+          <div className="Pies">
+            {/* <div className="Pie"> */}
+            <h2>
+              From you total KCal how many carb kcal ,fat kcal and protrin kcal?
+            </h2>
+            <div className="Pie">
+              <PieChart
+                data={[
+                  { title: "Fat", value: 9 * totalFat, color: "yellow" },
+                  { title: " Carb", value: 4 * totalCarb, color: "#C13C37" },
+                  {
+                    title: "Protein",
+                    value: 4 * totalProtein,
+                    color: "#6A2135",
+                  },
+                ]}
+                label={({ dataEntry }) =>
+                  `${dataEntry.title}: ${dataEntry.value}`
+                }
+                labelStyle={{ fontSize: "50%" }}
+              />
+            </div>
+
+            {/* <div className="Pie_2"> */}
+            <h2>
+              From you total KCal how many g of carb, g of fat and g of protrin
+              ?
+            </h2>
+            <div className="Pie_2">
+              <PieChart
+                label={({ dataEntry }) => dataEntry.value}
+                labelStyle={{ fontSize: "10px" }}
+                data={[
+                  { title: "Total Fat", value: totalFat, color: "yellow" },
+                  { title: "Total Carb", value: totalCarb, color: "#C13C37" },
+                  {
+                    title: "Total Protein",
+                    value: totalProtein,
+                    color: "#6A2135",
+                  },
+                ]}
+              />
+            </div>
           </div>
         )}
         <Water />

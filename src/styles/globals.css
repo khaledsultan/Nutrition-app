@@ -128,6 +128,15 @@ a {
 .aboutYou_input::placeholder{
   color: #b2afaf;
 }
+.aboutYou_button{
+  background-color: transparent;
+  width: 20%;
+  margin: 1%;
+  font-size: 15px;
+  color: #0F3D3E;
+  font-weight: bold;
+
+}
 
 /* ------------- add meals css ----------------------- */
 .add_meals{
@@ -157,6 +166,10 @@ gap: 2%;
   align-items: center;
   margin: 1%;
   font-size: 25px;
+  
+}
+.fat_icon {
+  font-size: 40px;
   
 }
 .add_meals_list{
@@ -192,6 +205,7 @@ option {
   background: transparent;
   border-bottom: solid 5px rgb(80, 79, 79);
 }input{
+  color: #0F3D3E;
   border-bottom: solid 5px rgb(80, 79, 79);
   border-radius: 0% 45%;
   /* box-shadow: 10px; */
@@ -200,7 +214,6 @@ option {
   margin: 1%;
   padding: 15pt 0 6pt 0;
   font-size: 17px;
-  color: #F1F1F1;
   background: transparent;
   border-width: 0 0 1px 0;
   text-align: center;
@@ -211,7 +224,7 @@ input:hover{
   
 }
 .add_meals_form_input:hover {
-  background: #1f4144;  
+  background-color:#9ea5b3;
  
 }
 
@@ -221,15 +234,17 @@ input:hover{
     border-radius: 31px;
     /* text-shadow: 9px 2px 5px #666666; */
     font-size: 31px;
-    color: #F1F1F1;
+    color: black;
+
     background: transparent;
     padding: 5px 16px 5px 16px;
   }
   
   .add_meals_button:hover {
     background: #1f4144;
-    color: black;
+    color: #F1F1F1;
   }
+  
   
 /* ------------- home page css ----------------------- */
 header{
@@ -282,14 +297,20 @@ h1 , .quots{
   font-size: 20px;
 }
 nav{
-  position: sticky;
-  bottom: 20px;
-  right: 45%;
+  position: fixed;
+  top: 100px;
+  left: 2%;
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
   align-items: center;
+  gap: 30px;
   text-shadow: 2px 2px 4px #000000;
+
 }
+/* nav:hover{
+
+} */
 .toggleAddMeals{
   animation: add_meals_list 3s ease 0s 1 normal forwards;
 }
@@ -297,8 +318,23 @@ nav{
   background-color: transparent;
   width: 75%;
   margin: 1%;
-  color: #F1F1F1;
+  font-size: 20px;
+  color: #0F3D3E;
+  font-weight: bold;
 }
+.toggleAddMeals_button:hover{
+  background-color:#9ea5b3;
+
+}
+.toggleAddMeals_button_Summary{
+  background-color: transparent;
+  width: 40%;
+  margin: 1%;
+  font-size: 20px;
+  color: #0F3D3E;
+  font-weight: bold;
+}
+
 
 /* ------------- Water css ----------------------- */
 :root {
@@ -384,19 +420,21 @@ nav{
 /* ///////////////////////////////// */
 
 /* /////////////////two pies css////////////////// */
-
+.pies{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: #000000;
+}
 .Pie {
-position: fixed;
-top: 50%;
-right: 0;
-  width: 200px;
-  animation: add_meals_list 3s ease 0s 1 normal forwards;
+ top: 50%;
+right:50%; 
+  width: 10%;
 }
 .Pie_2 {
-  position: fixed;
-  top: 10%;
-  right: 0;
-    width: 200px;
-    animation: add_meals_list 3s ease 0s 1 normal forwards;
+  /* top: 10%;
+  right: 0; */
+  width: 10%;
   }
   /* ///////////////////////////////// */

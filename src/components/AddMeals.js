@@ -84,7 +84,9 @@ export default function AddMeals({
         <h2 className="add_meals_name">{name}</h2>
         <div className="add_meals_result">
           <p>⚡ {calCalory}</p>
-          <p>🧈 {calFat}</p>
+          <p>
+            <span className="fat_icon">🧈</span> {calFat}
+          </p>
           <p>🍚 {calCarb}</p>
           <p>🥩 {calProtein}</p>
         </div>

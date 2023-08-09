@@ -6,10 +6,10 @@ export default function Navigation() {
   return (
     <nav>
       <div>
-        <Link href="/"> HOME PAGE </Link>
+        <Link href="/">BOARD 📝 </Link>
       </div>
       <div>
-        <Link href="/aboutYou"> ABOUT YOU </Link>
+        <Link href="/aboutYou">ABOUT YOU 🫵 </Link>
       </div>
     </nav>
   );

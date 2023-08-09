@@ -27,7 +27,7 @@ export default function Water() {
   return (
     <div className="WaterGoal_container">
       <h3>
-        Enter Your Goal of water:
+        Enter Your Goal of water💧:
         <input
           type="number"
           name="numberOfLiters"
