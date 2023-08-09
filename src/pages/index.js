@@ -249,16 +249,16 @@ export default function Home() {
             <div className="Pie">
               <PieChart
                 data={[
-                  { title: "Fat", value: 9 * totalFat, color: "yellow" },
-                  { title: " Carb", value: 4 * totalCarb, color: "#C13C37" },
+                  { title: "🧈", value: 9 * totalFat, color: "#78C1F3" },
+                  { title: " 🍞", value: 4 * totalCarb, color: "#9BE8D8" },
                   {
-                    title: "Protein",
+                    title: "🥩",
                     value: 4 * totalProtein,
-                    color: "#6A2135",
+                    color: "#F8FDCF",
                   },
                 ]}
                 label={({ dataEntry }) =>
-                  `${dataEntry.title}: ${dataEntry.value}`
+                  `${dataEntry.title} ${dataEntry.value}`
                 }
                 labelStyle={{ fontSize: "50%" }}
               />
@@ -271,15 +271,17 @@ export default function Home() {
             </h2>
             <div className="Pie_2">
               <PieChart
-                label={({ dataEntry }) => dataEntry.value}
-                labelStyle={{ fontSize: "10px" }}
+                label={({ dataEntry }) =>
+                  `${dataEntry.title} ${dataEntry.value}`
+                }
+                labelStyle={{ fontSize: "50%" }}
                 data={[
-                  { title: "Total Fat", value: totalFat, color: "yellow" },
-                  { title: "Total Carb", value: totalCarb, color: "#C13C37" },
+                  { title: "🧈", value: totalFat, color: "#78C1F3" },
+                  { title: "🍞", value: totalCarb, color: "#9BE8D8" },
                   {
-                    title: "Total Protein",
+                    title: "🥩",
                     value: totalProtein,
-                    color: "#6A2135",
+                    color: "#F8FDCF",
                   },
                 ]}
               />

@@ -135,7 +135,10 @@ a {
   font-size: 15px;
   color: #0F3D3E;
   font-weight: bold;
+}
+.aboutYou_button:hover{
 
+  background-color:#9ea5b3;
 }
 
 /* ------------- add meals css ----------------------- */
@@ -334,6 +337,10 @@ nav{
   color: #0F3D3E;
   font-weight: bold;
 }
+.toggleAddMeals_button_Summary:hover{
+
+  background-color:#9ea5b3;
+}
 
 
 /* ------------- Water css ----------------------- */
@@ -430,11 +437,14 @@ nav{
 .Pie {
  top: 50%;
 right:50%; 
-  width: 10%;
+  width: 20%;
+margin: auto;
 }
 .Pie_2 {
   /* top: 10%;
   right: 0; */
-  width: 10%;
+  width: 20%;
+  margin: auto;
+
   }
   /* ///////////////////////////////// */

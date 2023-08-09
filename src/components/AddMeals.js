@@ -87,7 +87,7 @@ export default function AddMeals({
           <p>
             <span className="fat_icon">🧈</span> {calFat}
           </p>
-          <p>🍚 {calCarb}</p>
+          <p>🍞 {calCarb}</p>
           <p>🥩 {calProtein}</p>
         </div>
         <ul>
