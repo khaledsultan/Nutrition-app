@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
 import { useState } from "react";
-import useLocalStorageState from "use-local-storage-state";
 
 export default function AboutYou() {
   // const [results, setResults] = useLocalStorageState(
@@ -9,6 +7,8 @@ export default function AboutYou() {
   // );
   const [results, setResults] = useState([]);
   const [item, setItem] = useState([]);
+  const [days, setDays] = useState([]);
+
   // const [item, setItem] = useLocalStorageState(("item", { defaultValue: [] }));
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,68 +30,116 @@ export default function AboutYou() {
             item.activity
       )
     );
+    setDays(
+      results.map(
+        (item) => (Math.abs(item.weight - item.goalWeight) * 7700) / 500
+      )
+    );
   }, [results]);
   return (
     <>
       <h2>How Many Calories You Burn Daily ?!</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="aboutYou">
           <label htmlFor="gender"></label>
           <select id="gender" name="gender">
-            <Option value="" hidden>
+            <option value="" hidden>
               Your gender
-            </Option>
-            <option value="0">Male</option>
-            <option value="1">Female</option>
+            </option>
+            <option value="0">Male 🚹</option>
+            <option value="1">Female 🚺</option>
           </select>
 
           <label htmlFor="height"></label>
-          <Input
+          <input
+            className="aboutYou_input"
             id="height"
             name="height"
             type="number"
             placeholder="Height in cm"
             min="0"
-            // required
+            required
           />
           <label htmlFor="weight"></label>
-          <Input
+          <input
+            className="aboutYou_input"
             id="weight"
             name="weight"
             type="number"
             placeholder="Weight in kg"
             min="0"
-            // required
+            required
           />
           <label htmlFor="age"></label>
-          <Input
+          <input
+            className="aboutYou_input"
             id="age"
             name="age"
             type="number"
             placeholder="Age"
             min="0"
-            // required
+            required
           />
-          <label htmlFor="activity">Select your activity level:</label>
-          <select id="activity" name="activity">
-            <Option value="" hidden>
-              Activity level
-            </Option>
-            <option value="1.2">little or no exercise</option>
-            <option value="1.375">light exercise(sports 1-3 days/week)</option>
-            <option value="1.55">
-              moderate exercise(sports 3-5 days/week)
-            </option>
-            <option value="1.725">hard exercise(sports 6-7 days a week)</option>
-            <option value="1.9">
-              very hard exercise(sports & physical job or 2x training)
-            </option>
-          </select>
+          <label htmlFor="goalWeight"></label>
+          <input
+            className="aboutYou_input"
+            id="goalWeight"
+            name="goalWeight"
+            type="number"
+            placeholder="Goal Weight in kg"
+            min="0"
+            required
+          />
+          <div>
+            <label htmlFor="activity">Select your activity level:</label>
+            <select id="activity" name="activity">
+              <option value="" hidden>
+                Activity level
+              </option>
+              <option value="1.2">little or no exercise</option>
+              <option value="1.375">
+                light exercise(sports 1-3 days/week)
+              </option>
+              <option value="1.55">
+                moderate exercise(sports 3-5 days/week)
+              </option>
+              <option value="1.725">
+                hard exercise(sports 6-7 days a week)
+              </option>
+              <option value="1.9">
+                very hard exercise(sports & physical job or 2x training)
+              </option>
+            </select>
+          </div>
 
-          <button>Calculate</button>
+          <button className="aboutYou_button">Calculate</button>
+          <ul>
+            {results.map((item, index) => (
+              <li className="add_meals_list" key={index}>
+                <span className="span">Your Weight: {item.weight} kg</span>
+                <span className="span">Your Height:{item.height} cm</span>
+                <span className="span">Your age :{item.age} year</span>
+              </li>
+            ))}
+          </ul>
           <h2>
             {item.map((item) => {
-              return Math.round(item);
+              if (item == 0) {
+                return;
+              }
+              return Math.round(item) + " Kcal.";
+            })}
+          </h2>
+          <h2>
+            {days.map((item) => {
+              if (item == 0) {
+                return;
+              }
+              return (
+                "You need approximately " +
+                Math.round(item) +
+                " days to reach you goal weight."
+              );
             })}
           </h2>
         </div>
@@ -99,13 +147,3 @@ export default function AboutYou() {
     </>
   );
 }
-
-const Input = styled.input`
-  border: none;
-  border-bottom: solid 1px grey;
-  margin: 2%;
-`;
-
-const Option = styled.option`
-  color: grey;
-`;
