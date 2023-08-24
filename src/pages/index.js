@@ -10,9 +10,6 @@ import Water from "@/components/Water.js";
 import BarcodeScanner from "../components/BarcodeScanner.js";
 
 const inter = Inter({ subsets: ["latin"] });
-// const handlee = Handlee({ subsets: ["cursive"] });
-const filterMeals = (meals, category) =>
-  meals.filter((meal) => meal.name === category);
 
 export default function Home() {
   //3263859883713  42kcal
@@ -21,9 +18,11 @@ export default function Home() {
   const [meals, setMeals] = useLocalStorageState("mealsData", {
     defaultValue: [],
   });
+  const filterMeals = (meals, category) =>
+    meals.filter((meal) => meal.name === category);
 
   // const [totalGlobalCalories, setTotalGlobalCalories] = useState([]);
-  const [totalCalory, setTotalCalory] = useState(0);
+  // const [totalCalory, setTotalCalory] = useState(0);
   const [totalFat, setTotalFat] = useState(0);
   const [totalCarb, setTotalCarb] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
@@ -91,6 +90,65 @@ export default function Home() {
   // console.log({ data });
 
   // ---------------------
+  // console.log({ meals });
+  // ---------------map over meals array to calculate total kcal for all meals ------------------
+  const map1 = meals.map((meal) => Number(meal.Kcal));
+  // console.log(map1);
+  function sumKCal(arr) {
+    return arr.reduce((accumulator, currentValue) => {
+      if (typeof currentValue === "number") {
+        return accumulator + currentValue;
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  }
+  // console.log(sumKCal(map1));
+  let finalKCal = sumKCal(map1);
+  // ---------------map over meals array to calculate total g fat  for all meals ------------------
+  const map2 = meals.map((meal) => Number(meal.Fat));
+  // console.log(map1);
+  function sumFat(arr) {
+    return arr.reduce((accumulator, currentValue) => {
+      if (typeof currentValue === "number") {
+        return accumulator + currentValue;
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  }
+  // console.log(sumKCal(map1));
+  let finalFat = sumFat(map2);
+  // ---------------map over meals array to calculate total g carb  for all meals ------------------
+  const map3 = meals.map((meal) => Number(meal.Carb));
+  // console.log(map1);
+  function sumCarb(arr) {
+    return arr.reduce((accumulator, currentValue) => {
+      if (typeof currentValue === "number") {
+        return accumulator + currentValue;
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  }
+  // console.log(sumKCal(map1));
+  let finalCarb = sumCarb(map3);
+  // ---------------map over meals array to calculate total g carb  for all meals ------------------
+  const map4 = meals.map((meal) => Number(meal.Protein));
+  // console.log(map1);
+  function sumProtein(arr) {
+    return arr.reduce((accumulator, currentValue) => {
+      if (typeof currentValue === "number") {
+        return accumulator + currentValue;
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  }
+  // console.log(sumKCal(map1));
+  let finalProtein = sumProtein(map4);
+  // ----------------------
+
   function handleAddMeal(meal) {
     setMeals([...meals, meal]);
   }
@@ -110,21 +168,18 @@ export default function Home() {
     setShowPie(!showPie);
   }
 
-  // ---------------------
+  // ---------------------not used----------
 
-  function handleTotalCalories(calCalory, calFat, calCarb, calProtein) {
-    console.log("Kcal from index :", calCalory);
-    const updatedTotalGlobalCalories = Number(totalCalory) + Number(calCalory);
-    const updatedTotalGlobalFat = Number(totalFat) + Number(calFat);
-    const updatedTotalGlobalCarb = Number(totalCarb) + Number(calCarb);
-    const updatedTotalGlobalProtein = Number(totalProtein) + Number(calProtein);
-    // console.log({ updatedTotalCalories });
-    // setTotalGlobalCalories(updatedTotalGlobalCalories);
-    setTotalCalory(updatedTotalGlobalCalories);
-    setTotalFat(updatedTotalGlobalFat);
-    setTotalCarb(updatedTotalGlobalCarb);
-    setTotalProtein(updatedTotalGlobalProtein);
-  }
+  // function handleTotalCalories(calCalory, calFat, calCarb, calProtein) {
+  //   console.log("Kcal from add meals :", calCalory);
+
+  //   setTotalCalory(calCalory);
+  //   setTotalFat(calFat);
+  //   setTotalCarb(calCarb);
+  //   setTotalProtein(calProtein);
+  // }
+
+  // ---------------------
   function kcalhandleKcalOnChange(e) {
     e.preventDefault();
     setGoal(e.target.value);
@@ -156,12 +211,12 @@ export default function Home() {
           <div>
             <ProgressBar
               className="KcalGoal_progressbar"
-              progress={(totalCalory * 100) / goal}
+              progress={(finalKCal * 100) / goal}
               radius={100}
               // transition="0.3s ease"
             />
             <p>
-              Calories left:<strong>{goal - totalCalory}</strong> Kcal
+              Calories left:<strong>{goal - finalKCal}</strong> Kcal
             </p>
           </div>
         )}
@@ -176,7 +231,7 @@ export default function Home() {
           <div className="toggleAddMeals">
             <AddMeals
               name="Breakfast"
-              handleTotalCalories={handleTotalCalories}
+              // handleTotalCalories={handleTotalCalories}
               meals={filterMeals(meals, "Breakfast")}
               onAddMeal={handleAddMeal}
               handleShowPie={handleShowPie}
@@ -193,7 +248,7 @@ export default function Home() {
             {" "}
             <AddMeals
               name="Lunch"
-              handleTotalCalories={handleTotalCalories}
+              // handleTotalCalories={handleTotalCalories}
               meals={filterMeals(meals, "Lunch")}
               onAddMeal={handleAddMeal}
               handleShowPie={handleShowPie}
@@ -210,7 +265,7 @@ export default function Home() {
             {" "}
             <AddMeals
               name="Dinner"
-              handleTotalCalories={handleTotalCalories}
+              // handleTotalCalories={handleTotalCalories}
               meals={filterMeals(meals, "Dinner")}
               onAddMeal={handleAddMeal}
               handleShowPie={handleShowPie}
@@ -227,7 +282,7 @@ export default function Home() {
             {" "}
             <AddMeals
               name="Snacks"
-              handleTotalCalories={handleTotalCalories}
+              // handleTotalCalories={handleTotalCalories}
               meals={filterMeals(meals, "Snacks")}
               onAddMeal={handleAddMeal}
               handleShowPie={handleShowPie}
@@ -243,10 +298,11 @@ export default function Home() {
         {showPie && (
           <div className="Pies">
             {/* <div className="Pie"> */}
-            <h2>
-              From you total KCal how many carb kcal ,fat kcal and protrin kcal?
-            </h2>
-            <div className="Pie">
+            {/* <h2>
+              From your total KCal how many carb kcal ,fat kcal and protein
+              kcal?
+            </h2> */}
+            {/* <div className="Pie">
               <PieChart
                 data={[
                   { title: "🧈", value: 9 * totalFat, color: "#78C1F3" },
@@ -261,12 +317,12 @@ export default function Home() {
                   `${dataEntry.title} ${dataEntry.value}`
                 }
                 labelStyle={{ fontSize: "50%" }}
-              />
-            </div>
+              /> */}
+            {/* </div> */}
 
             {/* <div className="Pie_2"> */}
             <h2>
-              From you total KCal how many g of carb, g of fat and g of protrin
+              From your total KCal how many g of carb, g of fat and g of protein
               ?
             </h2>
             <div className="Pie_2">
@@ -276,11 +332,11 @@ export default function Home() {
                 }
                 labelStyle={{ fontSize: "50%" }}
                 data={[
-                  { title: "🧈", value: totalFat, color: "#78C1F3" },
-                  { title: "🍞", value: totalCarb, color: "#9BE8D8" },
+                  { title: "🧈", value: finalFat, color: "#78C1F3" },
+                  { title: "🍞", value: finalCarb, color: "#9BE8D8" },
                   {
                     title: "🥩",
-                    value: totalProtein,
+                    value: finalProtein,
                     color: "#F8FDCF",
                   },
                 ]}
