@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Document() {
   return (
     <Html lang="en">
-      <Link rel="preconnect" href="https://fonts.googleapis.com"></Link>
+      {/* <Link rel="preconnect" href="https://fonts.googleapis.com"></Link>
       <Link
         rel="preconnect"
         href="https://fonts.gstatic.com"
@@ -13,7 +13,7 @@ export default function Document() {
       <Link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Gochi+Hand&display=swap"
         rel="stylesheet"
-      ></Link>
+      ></Link> */}
 
       <Head />
       <body>

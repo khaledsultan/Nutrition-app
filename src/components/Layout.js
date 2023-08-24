@@ -1,6 +1,3 @@
-`use client`;
-
-import styled from "styled-components";
 import Navigation from "./Navigation.js";
 
 export default function Layout({ children }) {
