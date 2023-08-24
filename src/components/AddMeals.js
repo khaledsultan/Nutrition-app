@@ -1,4 +1,3 @@
-`use client`;
 import React, { useState } from "react";
 // import Barcode from "./BarcodeScanner.js/index.js";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +6,7 @@ import BarcodeScanner from "./BarcodeScanner.js";
 
 export default function AddMeals({
   name,
-  handleTotalCalories,
+  // handleTotalCalories,
   meals,
   onAddMeal,
   handleShowPie,
@@ -22,6 +21,7 @@ export default function AddMeals({
   // },
   // ]);
   const [calCalory, setCalCalory] = useState([]);
+
   const [calFat, setCalFat] = useState([]);
   const [calCarb, setCalCarb] = useState([]);
   const [calProtein, setCalProtein] = useState([]);
@@ -75,7 +75,7 @@ export default function AddMeals({
     event.target.reset();
     // console.log({ totalKcal });
 
-    return handleTotalCalories(totalKcal, totalFat, totalCarb, totalProtein);
+    // return handleTotalCalories(totalKcal, totalFat, totalCarb, totalProtein);
   }
 
   return (
@@ -129,7 +129,7 @@ export default function AddMeals({
               className="add_meals_form_input"
               id={`${name}Amount`}
               name="Amount"
-              type="number"
+              type="text"
               placeholder="    Amount"
               min="0"
               required
