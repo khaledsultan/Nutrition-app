@@ -2,14 +2,10 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 export default function AboutYou() {
-  // const [results, setResults] = useLocalStorageState(
-  //   ("results", { defaultValue: [] })
-  // );
   const [results, setResults] = useState([]);
   const [item, setItem] = useState([]);
   const [days, setDays] = useState([]);
 
-  // const [item, setItem] = useLocalStorageState(("item", { defaultValue: [] }));
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -17,7 +13,6 @@ export default function AboutYou() {
     setResults([...results, data]);
     event.target.reset();
   }
-  ///////////why we used use effect ?
   useEffect(() => {
     setItem(
       results.map((item) =>

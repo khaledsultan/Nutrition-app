@@ -1,16 +1,6 @@
 import React, { useState } from "react";
-// import Barcode from "./BarcodeScanner.js/index.js";
-import { useDispatch, useSelector } from "react-redux";
-import { scanBarcode } from "../redux/store"; //// try to combine all state in one object
-import BarcodeScanner from "./BarcodeScanner.js";
 
-export default function AddMeals({
-  name,
-  // handleTotalCalories,
-  meals,
-  onAddMeal,
-  handleShowPie,
-}) {
+export default function AddMeals({ name, meals, onAddMeal, handleShowPie }) {
   // const [mealsData, setMealsData] = useState([]);
 
   // {
@@ -21,30 +11,16 @@ export default function AddMeals({
   // },
   // ]);
   const [calCalory, setCalCalory] = useState([]);
-
   const [calFat, setCalFat] = useState([]);
   const [calCarb, setCalCarb] = useState([]);
   const [calProtein, setCalProtein] = useState([]);
   // -------------
-  // const [scanning, setScanning] = useState(false);
-  const dispatch = useDispatch();
-  const scannedBarcode = useSelector((state) => state.scannedBarcode);
-
-  const handleBarcodeDetected = (barcodeData) => {
-    dispatch(scanBarcode(barcodeData));
-  };
-  const handleStartStopScanning = () => {
-    dispatch(scanBarcode(null)); // Reset scanned barcode
-  };
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const form = Object.fromEntries(formData);
-    // const { Kcal } = form;
-
     const updatedMealsData = [...meals, form];
-
     const totalKcal = updatedMealsData.reduce((total, item) => {
       const kcal = Number(item["Kcal"]);
       return total + kcal;
@@ -74,8 +50,6 @@ export default function AddMeals({
     // console.log("aftermealsdata", mealsData.kcal);
     event.target.reset();
     // console.log({ totalKcal });
-
-    // return handleTotalCalories(totalKcal, totalFat, totalCarb, totalProtein);
   }
 
   return (
@@ -105,15 +79,6 @@ export default function AddMeals({
 
         <form onSubmit={(event) => handleSubmit(event, `${name}`)}>
           <div>
-            {/* <label htmlFor={`${name}Barcode`}></label>
-          <Input
-            onSubmit={(e) => onBarcodeChange(e)}
-            id={`${name}Barcode`}
-            name={`${name}Barcode`}
-            type="text"
-            placeholder="Barcode"
-            // required
-          /> */}
             <label htmlFor={`${name}Food`}></label>
             <input
               className="add_meals_form_input"
@@ -181,10 +146,6 @@ export default function AddMeals({
             </button>
           </div>
         </form>
-        {/* <button onClick={handleStartStopScanning}>Start Scanning</button>
-
-        {scannedBarcode && <p>Scanned Barcode: {scannedBarcode}</p>}
-        <BarcodeScanner onDetected={handleBarcodeDetected} /> */}
       </section>
     </>
   );
