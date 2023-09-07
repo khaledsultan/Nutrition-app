@@ -5,8 +5,8 @@ import AddMeals from "../components/AddMeals.js";
 import useLocalStorageState from "use-local-storage-state";
 import React, { useState } from "react";
 import { PieChart, pieChartDefaultProps } from "react-minimal-pie-chart";
-import ProgressBar from "react-customizable-progressbar";
 import Water from "@/components/Water.js";
+import KcalGoal from "@/components/KcalGoal.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +16,11 @@ export default function Home() {
   const [meals, setMeals] = useLocalStorageState("mealsData", {
     defaultValue: [],
   });
-  const [goal, setGoal] = useState(0);
   const [showBreakfast, setShowBreakfast] = useState(false);
   const [showLunch, setShowLunch] = useState(false);
   const [showDinner, setShowDinner] = useState(false);
   const [showSnacks, setShowSnacks] = useState(false);
   const [showPie, setShowPie] = useState(false);
-  const [showProgressBar, setShowProgressBar] = useState(false);
 
   // ---------------------
   // console.log({ meals });
@@ -106,11 +104,7 @@ export default function Home() {
   }
 
   // ---------------------
-  function kcalhandleKcalOnChange(e) {
-    e.preventDefault();
-    setGoal(e.target.value);
-    setShowProgressBar(true);
-  }
+
   function handleShowPie() {
     setShowPie(true);
   }
@@ -120,31 +114,7 @@ export default function Home() {
     <>
       <h1>Welcome back !!! </h1>
       <p className="quots"> “ It is Not Diet, It is A Lifestyle Change ”</p>
-      <div className="KcalGoal_container">
-        <h3>
-          Enter Your Goal of Calories⚡:
-          <input
-            min={0}
-            type="number"
-            name="numberOfKcal"
-            placeholder="2000 KCal"
-            onChange={kcalhandleKcalOnChange}
-          ></input>
-        </h3>
-        {showProgressBar && (
-          <div>
-            <ProgressBar
-              className="KcalGoal_progressbar"
-              progress={(finalKCal * 100) / goal}
-              radius={100}
-            />
-            <p>
-              Calories left:<strong>{goal - finalKCal}</strong> Kcal
-            </p>
-          </div>
-        )}
-      </div>
-
+      <KcalGoal finalKCal={finalKCal} />
       <div>
         <button className="toggleAddMeals_button" onClick={toggleBreakfast}>
           Breakfast
